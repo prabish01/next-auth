@@ -1,5 +1,9 @@
+import { Loginform } from "@/components/auth/Loginform";
+
 const LoginPage = () => {
-  return <>Login Page</>;
+    return (
+      <Loginform/>
+  )
 };
 
 export default LoginPage;
