@@ -1,6 +1,8 @@
-// "use client";¿
+"use client";
 
+import { BackButton } from "@/components/auth/Back-btn";
 import { Header } from "@/components/auth/Header";
+import { Social } from "@/components/auth/Social";
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card";
 
 interface CardWrapperProps {
@@ -11,13 +13,25 @@ interface CardWrapperProps {
   showSocial?: boolean;
 }
 
-export const CardWrapper = ({ children, headerLabel, backButtonLabel, backButtonHref, showSocial }) => {
+export const CardWrapper = ({ children, headerLabel, backButtonLabel, backButtonHref, showSocial }: CardWrapperProps) => {
+  console.log("Render Card Wrapper and its content");
   return (
-    <Card className="shadow-lg w-[500px] h-[500px] items-center align-middle">
+    <Card className="shadow-lg w-[500px] h-[500px] items-center align-middle ">
       <CardHeader>
         <Header label={headerLabel} />
       </CardHeader>
-      shared card wrapper <br /> {children}
+      <CardContent>
+        {children}
+      </CardContent>
+      {showSocial && (
+        <CardFooter>
+          <Social />
+        </CardFooter>
+      )}
+      <CardFooter>
+        <BackButton label={backButtonLabel } href={backButtonHref} />
+      </CardFooter>
+      shared card wrapper
     </Card>
   );
 };
