@@ -12,6 +12,7 @@ import * as z from "zod";
 import { Button } from "../ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
+import { login } from "@/action/login";
 
 
 export const Loginform = () => {
@@ -25,7 +26,8 @@ export const Loginform = () => {
   });
 
   const onSubmit = (values: z.infer<typeof loginSchema>) => {
-    console.log(values);
+    // console.log(values);
+    login(values);
   }
 
   console.log("Render login form attributes");
@@ -61,8 +63,8 @@ export const Loginform = () => {
               )}
             />
           </div>
-          <FormError errMsg="Something went wrong" />
-          <FormSuccess successMsg="Authentication success" />
+          <FormError errMsg="" />
+          <FormSuccess successMsg="" />
           <Button type="submit" className="w-full mt-6" variant="login">
             Login
           </Button>
