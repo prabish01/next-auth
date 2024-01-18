@@ -15,7 +15,7 @@ export const Header = ({ label }: HeaderProps) => {
   return (
     <div className="w-full flex flex-col items-center justify-center ">
       <h1 className={cn("text-3xl font-bold", font.className)}> Authentication Portal</h1>
-      <p className="text-slate-400 mt-5">{label}</p>
+      <p className="text-slate-400">{label}</p>
     </div>
   );
 };

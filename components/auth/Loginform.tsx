@@ -13,6 +13,7 @@ import { Button } from "../ui/button";
 
 export const Loginform = () => {
   const form = useForm<z.infer<typeof loginSchema>>({
+  
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
@@ -20,12 +21,16 @@ export const Loginform = () => {
     },
   });
 
+  const onSubmit = (values: z.infer<typeof loginSchema>) => {
+    console.log(values);
+  }
+
   console.log("Render login form attributes");
   return (
     <CardWrapper headerLabel="Welcome to the login portal" backButtonLabel="Don't have an account?" backButtonHref="/auth/register" showSocial>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(() => {})}>
-          <div className="space-y-4 mb-10">
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="space-y-4">
             <FormField
               control={form.control}
               name="email"
@@ -53,7 +58,7 @@ export const Loginform = () => {
               )}
             />
           </div>
-          <Button type="submit" className="w-full" variant="login">
+          <Button type="submit" className="w-full mt-6" variant="login">
             Login
           </Button>
         </form>

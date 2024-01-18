@@ -16,22 +16,20 @@ interface CardWrapperProps {
 export const CardWrapper = ({ children, headerLabel, backButtonLabel, backButtonHref, showSocial }: CardWrapperProps) => {
   console.log("Render Card Wrapper and its content");
   return (
-    <Card className="shadow-lg w-[500px] h-[500px] items-center align-middle ">
+    <Card className="shadow-lg w-[500px] h-auto items-center align-middle ">
       <CardHeader>
         <Header label={headerLabel} />
       </CardHeader>
-      <CardContent>
-        {children}
-      </CardContent>
+      <CardContent>{children}</CardContent>
       {showSocial && (
         <CardFooter>
           <Social />
         </CardFooter>
       )}
       <CardFooter>
-        <BackButton label={backButtonLabel } href={backButtonHref} />
+        <BackButton label={backButtonLabel} href={backButtonHref} />
       </CardFooter>
-      shared card wrapper
+      {/* shared card wrapper */}
     </Card>
   );
 };
