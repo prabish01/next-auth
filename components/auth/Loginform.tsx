@@ -3,7 +3,8 @@
 import { CardWrapper } from "@/app/auth/Card-wrapper";
 import { register } from "module";
 import { useForm } from "react-hook-form";
-import { useTransition } from "react";
+// import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormItem, FormMessage, FormField, FormLabel } from "@/components/ui/form";
 import { loginSchema } from "@/schemas";
@@ -16,6 +17,8 @@ import { login } from "@/action/login";
 
 
 export const Loginform = () => {
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof loginSchema>>({
   
@@ -27,13 +30,24 @@ export const Loginform = () => {
   });
 
   const onSubmit = (values: z.infer<typeof loginSchema>) => {
+    setError("");
+    setSuccess("");
     startTransition(() => {
-      login(values);
+      login(values)
+      .then((data) => {
+        setError(data.error);
+        setSuccess(data.success);
+      })
+        .catch((error) => {
+          // handle any potential error druing login
+        setError("An error occured during login")
+      })
+
       
-    })
+  })
     
-    // console.log(values);
-  }
+  // console.log(values);
+};
 
   console.log("Render login form attributes");
   return (
@@ -68,8 +82,8 @@ export const Loginform = () => {
               )}
             />
           </div>
-          <FormError errMsg="" />
-          <FormSuccess successMsg="" />
+          <FormError errMsg={error} />
+          <FormSuccess successMsg={success} />
           <Button type="submit" disabled={isPending} className="w-full mt-6" variant="login">
             Login
           </Button>
