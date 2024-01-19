@@ -3,7 +3,7 @@
 import { CardWrapper } from "@/app/auth/Card-wrapper";
 import { register } from "module";
 import { useForm } from "react-hook-form";
-
+import { useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormItem, FormMessage, FormField, FormLabel } from "@/components/ui/form";
 import { loginSchema } from "@/schemas";
@@ -16,6 +16,7 @@ import { login } from "@/action/login";
 
 
 export const Loginform = () => {
+  const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof loginSchema>>({
   
     resolver: zodResolver(loginSchema),
@@ -26,8 +27,12 @@ export const Loginform = () => {
   });
 
   const onSubmit = (values: z.infer<typeof loginSchema>) => {
+    startTransition(() => {
+      login(values);
+      
+    })
+    
     // console.log(values);
-    login(values);
   }
 
   console.log("Render login form attributes");
@@ -43,7 +48,7 @@ export const Loginform = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="abc@example.com" type="email" />
+                    <Input {...field} disabled={isPending} placeholder="abc@example.com" type="email" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -56,7 +61,7 @@ export const Loginform = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="********" type="password" />
+                    <Input {...field} disabled={isPending} placeholder="********" type="password" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -65,7 +70,7 @@ export const Loginform = () => {
           </div>
           <FormError errMsg="" />
           <FormSuccess successMsg="" />
-          <Button type="submit" className="w-full mt-6" variant="login">
+          <Button type="submit" disabled={isPending} className="w-full mt-6" variant="login">
             Login
           </Button>
         </form>
