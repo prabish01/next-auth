@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export const Social = () => {
   console.log("render social content");
-  const onClick = (variant) => {
+  const onClick = (variant:any) => {
     console.log(`${variant}  button clicked`);
   };
   return (

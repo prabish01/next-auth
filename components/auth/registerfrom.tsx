@@ -28,7 +28,7 @@ export const RegisterForm
       name:"",
       email: "",
       password: "",
-      confirmPassword: "",
+      // confirmPassword: "",
     },
   });
 
