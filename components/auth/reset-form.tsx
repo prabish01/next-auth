@@ -1,53 +1,56 @@
 "use client";
 
 import { CardWrapper } from "@/app/auth/Card-wrapper";
-import { register } from "module";
 import { useForm } from "react-hook-form";
 // import { useTransition } from "react";
 import { useState, useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormItem, FormMessage, FormField, FormLabel } from "@/components/ui/form";
-import { loginSchema } from "@/schemas";
+import { RegisterSchema, ResetSchema } from "@/schemas";
 import { Input } from "@/components/ui/input";
 import * as z from "zod";
 import { Button } from "../ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { login } from "@/action/login";
+import { reset } from "@/action/reset";
 import Link from "next/link";
 
-export const Loginform = () => {
+export const ResetForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
-  const form = useForm<z.infer<typeof loginSchema>>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<z.infer<typeof ResetSchema>>({
+    resolver: zodResolver(ResetSchema),
     defaultValues: {
       email: "",
-      password: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof loginSchema>) => {
+  const onSubmit = (values: z.infer<typeof ResetSchema>) => {
     setError("");
     setSuccess("");
+
+    console.log(values)
     startTransition(() => {
       console.log(values);
-      login(values)
+      reset(values)
         .then((data) => {
           setError(data.error);
           setSuccess(data.success);
         })
-        .catch((error) => {
-          // handle any potential error druing login
-          setError("An error occured during login");
-        });
+        // .catch((error) => {
+        //   // handle any potential error druing login
+        //   setError("An error occured during login");
+        // });
     });
   };
 
   console.log("Render login form attributes");
   return (
-    <CardWrapper headerLabel="Welcome to the login portal" backButtonLabel="Don't have an account?" backButtonHref="/auth/register" showSocial>
+    <CardWrapper
+      headerLabel="Welcome to the login portal"
+      backButtonLabel="Already Have an Account ?"
+      backButtonHref="/auth/login">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="space-y-4">
@@ -64,23 +67,7 @@ export const Loginform = () => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input {...field} disabled={isPending} placeholder="********" type="password" />
-                  </FormControl>
-                  <Button variant="link" size="sm" className="text-slate-400">
-                    <Link href="/auth/reset">Forgot Password ?</Link>
-                  </Button>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           </div>
           <FormError errMsg={error} />
           <FormSuccess successMsg={success} />
@@ -88,7 +75,7 @@ export const Loginform = () => {
           {/* <FormError errMsg={error} />
           <FormSuccess successMsg={success} /> */}
           <Button type="submit" disabled={isPending} className="w-full mt-6" variant="login">
-            Login
+            Reset Password
           </Button>
         </form>
       </Form>
