@@ -13,22 +13,18 @@ import * as z from "zod";
 import { Button } from "../ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { login } from "@/action/login";
+import { register } from "@/action/register";
 
-
-export const RegisterForm
- = () => {
+export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof RegisterSchema>>({
-  
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
-      name:"",
+      name: "",
       email: "",
       password: "",
-      // confirmPassword: "",
     },
   });
 
@@ -36,21 +32,19 @@ export const RegisterForm
     setError("");
     setSuccess("");
     startTransition(() => {
-      login(values)
-      .then((data) => {
-        setError(data.error);
-        setSuccess(data.success);
-      })
+      register(values)
+        .then((data) => {
+          setError(data.error);
+          setSuccess(data.success);
+        })
         .catch((error) => {
           // handle any potential error druing login
-        setError("An error occured during login")
-      })
+          setError("An error occured during login");
+        });
+    });
 
-      
-  })
-    
-  // console.log(values);
-};
+    // console.log(values);
+  };
 
   console.log("Render login form attributes");
   return (
@@ -65,7 +59,7 @@ export const RegisterForm
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled={isPending} placeholder="John Doe"/>
+                    <Input {...field} disabled={isPending} placeholder="John Doe" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -112,7 +106,7 @@ export const RegisterForm
             /> */}
           </div>
           <FormError errMsg={error} />
-          <FormSuccess successMsg={ success } />
+          <FormSuccess successMsg={success} />
           <Button type="submit" disabled={isPending} className="w-full mt-6" variant="login">
             Register
           </Button>

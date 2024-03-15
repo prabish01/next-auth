@@ -14,6 +14,7 @@ import { Button } from "../ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { login } from "@/action/login";
+import Link from "next/Link";
 
 export const Loginform = () => {
   const [error, setError] = useState<string | undefined>("");
@@ -28,11 +29,10 @@ export const Loginform = () => {
   });
 
   const onSubmit = (values: z.infer<typeof loginSchema>) => {
-
     setError("");
     setSuccess("");
     startTransition(() => {
-      console.log(values)
+      console.log(values);
       login(values)
         .then((data) => {
           setError(data.error);
@@ -43,8 +43,6 @@ export const Loginform = () => {
           setError("An error occured during login");
         });
     });
-
-
   };
 
   console.log("Render login form attributes");
@@ -75,6 +73,11 @@ export const Loginform = () => {
                   <FormControl>
                     <Input {...field} disabled={isPending} placeholder="********" type="password" />
                   </FormControl>
+                  <Button variant="link" size="sm" className="text-slate-400">
+                    <Link href="/auth/reset"></Link>
+                    Forgot Password ?
+                  </Button>
+
                   <FormMessage />
                 </FormItem>
               )}
