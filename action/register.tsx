@@ -7,15 +7,14 @@ import { db } from "@/lib/db";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validateFields = RegisterSchema.safeParse(values);
+  console.log(validateFields);
+
   if (!validateFields.success) {
     return { error: "Invalid fields !" };
   }
 
   const { email, name, password } = validateFields.data;
   const hashedPassword = await bcrypt.hash(password, 10);
-
-
-  
 
   const existingUser = await db.user.findUnique({
     where: {
@@ -34,6 +33,6 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
       password: hashedPassword,
     },
   });
-  console.log("---------------------")
+  console.log("---------------------");
   return { success: "User created successfully" };
 };

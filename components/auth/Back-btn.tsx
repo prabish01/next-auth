@@ -10,12 +10,12 @@ interface BackButtonProps {
 
 export const BackButton = ({ href, label }: BackButtonProps) => {
   console.log("Render BackButton");
-  const onClick = (variant) => {
-    console.log(`${variant} button clicked`);
+  const onClick = () => {
+    // console.log(`${variant} button clicked`);
   };
 
   return (
-    <Button className="mt-5" size="sm" onClick={() => onClick("No Acc btn")} variant="link">
+    <Button className="mt-5" size="sm" onClick={() => onClick()} variant="link">
       <Link href={href}>{label}</Link>
     </Button>
   );

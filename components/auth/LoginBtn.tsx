@@ -9,12 +9,12 @@ interface LoginBtnProps {
 }
 
 export const LoginBtn = ({ children, mode = "", asChild }: LoginBtnProps) => {
-  console.log("logintbn fn");
+  // console.log("logintbn fn");
   const router = useRouter();
 
   const onClick = () => {
     router.push("/auth/login");
-    console.log("login button clicked");
+    // console.log("login button clicked");
   };
 
   if (mode === "modal") {
@@ -22,7 +22,7 @@ export const LoginBtn = ({ children, mode = "", asChild }: LoginBtnProps) => {
   } else if (mode === "redirect") {
     return <span>Mode = redirect</span>;
   } else {
-    console.log("childrenpage");
+    // console.log("childrenpage");
     return (
       <span onClick={onClick} className="cursor-pointer">
         {children}

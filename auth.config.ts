@@ -6,7 +6,7 @@ import {getUserByEmail} from "@/data/user"
 
 import type { NextAuthConfig } from "next-auth";
 
-import { loginSchema } from "@/schemas";
+import { LoginSchema } from "@/schemas";
 
 export default {
   providers: [
@@ -20,7 +20,7 @@ export default {
     }),
     Credentials({
     async authorize(credentials) {
-      const validateFields = loginSchema.safeParse(credentials);
+      const validateFields = LoginSchema.safeParse(credentials);
 
       if (validateFields.success) {
         const { email, password } = validateFields.data;

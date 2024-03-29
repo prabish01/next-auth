@@ -14,8 +14,53 @@ import { Button } from "../ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { register } from "@/action/register";
+import { request, gql } from "graphql-request";
+import { useQuery, useMutation } from "@tanstack/react-query";
 
+const Regquery = gql`
+  mutation Register($email: String!, $username: String!, $role: String!, $password1: String!, $password2: String!) {
+    register(email: $email, username: $username, role: $role, password1: $password1, password2: $password2) {
+      token
+      refreshToken
+      success
+      errors
+    }
+  }
+`;
+
+interface vari {
+  email: string;
+  username: string;
+  role: string;
+  password1: string;
+  password2: string;
+}
+
+let variab: vari = {
+  email: "example@example.com",
+  username: "username",
+  role: "role",
+  password1: "password1",
+  password2: "password2",
+};
 export const RegisterForm = () => {
+  const mutation = useMutation({
+    mutationKey: ["landing"],
+    mutationFn: async (variab) => {
+      try {
+        // Execute mutation using graphql-request and return the result
+        const response = await request("http://backend-speed.centralindia.cloudapp.azure.com:8000/graphiql/", Regquery, variab);
+        return response;
+      } catch (error) {
+        throw new Error("Failed to mutate data");
+      }
+    },
+    onSuccess: (data) => {
+      // Handle mutation success here if needed
+      console.log("Mutation successful:", data);
+    },
+  });
+
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -40,10 +85,19 @@ export const RegisterForm = () => {
         .catch((error) => {
           // handle any potential error druing login
           setError("An error occured during login");
+          console.error("error registering", error);
         });
     });
+    variab = {
+      email: values.email,
+      username: values.name,
+      role: "employee",
+      password1: values.password,
+      password2: values.password,
+    };
+    mutation.mutate(variab);
 
-    // console.log(values);
+    console.log(values);
   };
 
   console.log("Render login form attributes");

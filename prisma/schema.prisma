@@ -61,3 +61,35 @@ model Account {
 
     @@unique([email, token])
   }
+
+
+
+model Job {
+  id                String       @id @default(cuid())
+  companyName       String
+  companyLocation   String
+  companyWebsite    String
+  jobTitle          String
+  jobSalary         Float
+  jobType           JobType
+  jobCategory       JobCategory
+  lastDate          String
+  jobDescription    String
+
+  
+}
+
+enum JobType{
+  FullTime
+  PartTime
+  Contract
+}
+
+enum JobCategory{
+  Agriculture
+  Construction
+  HospitalityAndTourism
+  RetailAndConsumerGoods
+  FacilityManagementAndSupportServices
+  TransportationAndLogistics
+}
