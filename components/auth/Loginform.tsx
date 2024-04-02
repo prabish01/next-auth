@@ -92,7 +92,7 @@ export const Loginform = () => {
     console.log(values);
   };
 
-  console.log("Render login form attributes");
+  // console.log("Render login form attributes");
   return (
     <CardWrapper headerLabel="Welcome to the login portal" backButtonLabel="Don't have an account?" backButtonHref="/auth/register" showSocial  jobHeaderLabel={""}>
       <Form {...form}>

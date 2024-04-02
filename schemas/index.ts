@@ -35,12 +35,13 @@ export const CreateJobSchema = z.object({
   companyLocation: z.string().min(1).max(255),
   companyWebsite: z.string(),
   jobTitle: z.string().min(1).max(255),
+  // jobSalary: z.coerce.number(),
   jobSalary: z.string(),
   jobType: z.enum(["FullTime", "PartTime", "Contract"]),
   jobCategory: z.enum(["Agriculture", "Construction", "HospitalityAndTourism", "RetailAndConsumerGoods", "FacilityManagementAndSupportServices", "TransportationAndLogistics"]),
   // lastDate: z.date().min(new Date()),
-  lastDate: z.string(),
-  // lastDate: z.date().optional(),
+  // lastDate: z.string(),
+  lastDate: z.date().optional(),
   jobDescription: z.string().min(1),
 });
 // export default CreateJobSchema;

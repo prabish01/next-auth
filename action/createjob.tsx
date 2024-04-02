@@ -1,4 +1,5 @@
-// import { auth } from "@/auth";
+"use server";
+
 import { db } from "@/lib/db";
 import { CreateJobSchema } from "@/schemas";
 import * as z from "zod";
@@ -17,16 +18,17 @@ export const createjob = async (values: z.infer<typeof CreateJobSchema>) => {
   }
 
   const { companyName, companyLocation, companyWebsite, jobTitle, jobSalary, jobType, jobCategory, lastDate, jobDescription } = validateFields.data;
+  console.log("validatefields.data: ", validateFields.data);
 
-  // const existingJobs = await db.job.findMany({
-  //   where: {
-  //     jobTitle: jobTitle,
-  //   },
-  // });
+  const existingJobs = await db.job.findMany({
+    where: {
+      jobTitle: jobTitle,
+    },
+  });
 
-  // if (existingJobs.length > 0) {
-  //   return { error: "This job already exists." };
-  // }
+  if (existingJobs.length > 0) {
+    return { error: "This job already exists." };
+  }
   try {
     await db.job.create({
       data: {
@@ -41,6 +43,7 @@ export const createjob = async (values: z.infer<typeof CreateJobSchema>) => {
         jobDescription,
       },
     });
+    console.log("i am inside await: ");
     console.log("Job created successfully");
     return { success: "Job created successfully" };
   } catch (error) {

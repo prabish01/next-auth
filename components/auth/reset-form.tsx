@@ -45,7 +45,7 @@ export const ResetForm = () => {
     });
   };
 
-  console.log("Render login form attributes");
+  // console.log("Render login form attributes");
   return (
     <CardWrapper
       headerLabel="Welcome to the login portal"

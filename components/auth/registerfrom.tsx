@@ -100,7 +100,7 @@ export const RegisterForm = () => {
     console.log(values);
   };
 
-  console.log("Render login form attributes");
+  // console.log("Render login form attributes");
   return (
     <CardWrapper headerLabel="Welcome to the reigster portal" backButtonLabel="Already have an account ?" backButtonHref="/auth/login" showSocial>
       <Form {...form}>

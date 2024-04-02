@@ -364,6 +364,7 @@ import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import Link from "next/link";
 
 export const Jobform = () => {
   const [date, setDate] = useState<Date>();
@@ -380,8 +381,8 @@ export const Jobform = () => {
       jobSalary: "",
       jobCategory: "Agriculture",
       jobType: "Contract",
-      // lastDate: new Date(),
-      lastDate: "",
+      lastDate: new Date(),
+      // lastDate: new,
       // lastDate: "",
       jobDescription: "",
     },
@@ -391,26 +392,6 @@ export const Jobform = () => {
     setError("");
     setSuccess("");
     startTransition(() => {
-      console.log(`data: ${values.companyName}`);
-      console.log(`data: ${values.jobType}`);
-      console.log(`data: ${values.companyLocation}`);
-      console.log(`data: ${values.companyWebsite}`);
-      console.log(`data: ${values.jobCategory}`);
-      console.log(`data: ${values.jobDescription}`);
-      console.log(`data: ${values.jobTitle}`);
-      console.log(`data: ${values.lastDate}`);
-      console.log(values.lastDate);
-      console.log(`data: ${values.jobSalary}`);
-      console.log("---------------------------------------------");
-      console.log(typeof values.companyName);
-      console.log(typeof values.jobType);
-      console.log(typeof values.companyLocation);
-      console.log(typeof values.companyWebsite);
-      console.log(typeof values.jobCategory);
-      console.log(typeof values.jobDescription);
-      console.log(typeof values.jobTitle);
-      console.log(typeof values.lastDate);
-      console.log(typeof values.jobSalary);
       createjob(values)
         .then((data) => {
           setError(data.error);
@@ -432,7 +413,12 @@ export const Jobform = () => {
 
   // console.log("Render login form attributes");
   return (
-    <div className=" container mt-10 w-full mx-auto items-center flex flex-col justify-center sm:w-[500px]">
+    <div className=" container mt-10 w-full mx-auto items-center flex flex-row gap-5 justify-center sm:w-[500px]">
+      <div className="d">
+        <Link href="/viewJob">
+          <Button>View Jobs</Button>
+        </Link>
+      </div>
       <JobCardWrapper headerLabel="Let's Create A Job" backButtonLabel="Already have an account ?" backButtonHref="/auth/login" showSocial>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -450,7 +436,7 @@ export const Jobform = () => {
                   </FormItem>
                 )}
               />
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name="lastDate"
                 render={({ field }) => (
@@ -462,7 +448,7 @@ export const Jobform = () => {
                     <FormMessage />
                   </FormItem>
                 )}
-              />
+              /> */}
               <FormField
                 control={form.control}
                 name="companyLocation"
@@ -515,6 +501,8 @@ export const Jobform = () => {
                   </FormItem>
                 )}
               />
+
+              {/* todo salary range  */}
               <FormField
                 control={form.control}
                 name="jobSalary"
@@ -529,7 +517,7 @@ export const Jobform = () => {
                 )}
               />
 
-              {/* <FormField
+              <FormField
                 control={form.control}
                 name="lastDate"
                 render={({ field }) => (
@@ -549,7 +537,7 @@ export const Jobform = () => {
                     <FormMessage />
                   </FormItem>
                 )}
-              /> */}
+              />
 
               <FormField
                 control={form.control}

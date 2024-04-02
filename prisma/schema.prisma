@@ -70,10 +70,10 @@ model Job {
   companyLocation   String
   companyWebsite    String
   jobTitle          String
-  jobSalary         Float
+  jobSalary         String
   jobType           JobType
   jobCategory       JobCategory
-  lastDate          String
+  lastDate          DateTime?
   jobDescription    String
 
   

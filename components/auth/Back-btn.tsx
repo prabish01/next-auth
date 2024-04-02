@@ -9,7 +9,7 @@ interface BackButtonProps {
 }
 
 export const BackButton = ({ href, label }: BackButtonProps) => {
-  console.log("Render BackButton");
+  // console.log("Render BackButton");
   const onClick = () => {
     // console.log(`${variant} button clicked`);
   };

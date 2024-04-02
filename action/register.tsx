@@ -33,6 +33,8 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
       password: hashedPassword,
     },
   });
+  
+  console.log("i am inside await: ", db.user.create({}));
   console.log("---------------------");
   return { success: "User created successfully" };
 };

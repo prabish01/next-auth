@@ -12,7 +12,7 @@ export const Social = () => {
     // console.log(`${variant}  button clicked`);
   };
 
-  console.log("render social content");
+  // console.log("render social content");
 
   return (
     <div className=" social buttton  flex align-middle gap-20 justify-around">
